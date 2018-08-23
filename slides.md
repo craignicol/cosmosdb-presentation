@@ -32,7 +32,10 @@ Some use cases are production ready, with great documentation. Others less so.
 
 ## Local development
 
+* CosmosDb emulator (and limiations)
+
 ## C#
 
 * Creating models
 * LINQ and conventions
+  * Silent failures 
