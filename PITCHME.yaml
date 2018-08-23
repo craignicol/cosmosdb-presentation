@@ -1,0 +1,5 @@
+theme : moon
+transition : fade
+footnote : "https://craignicol.wordpress.com"
+published : true
+controls-layout : edges
