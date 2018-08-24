@@ -24,7 +24,17 @@ Some use cases are production ready, with great documentation. Others less so.
 
 ---
 
-## Data structure
+## Data structure (SQL API)
+
+* It's not relational
+* Don't try and join between documents, you can only join within to traverse hierarchy
+* What queries do you need to optimise?
+
+---
+
+## Data structure (Table API)
+
+* It's actually KV pair
 
 ---
 
