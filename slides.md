@@ -28,6 +28,21 @@ Some use cases are production ready, with great documentation. Others less so.
 
 ---
 
+## Indexing
+
+* Index all the things
+* ...but sometimes you need to tune
+
+---
+
+## Partitioning
+
+* Automatically partition
+* Choose a key that adequately distributed the data
+* CosmosDb will automatically cluster
+
+---
+
 ## JS in the database?
 
 * Stored procs
