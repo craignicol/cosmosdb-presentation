@@ -23,11 +23,10 @@ Some use cases are production ready, with great documentation. Others less so.
 ## The APIs
 
 * SQL (LINQ over JSON, fka DocumentDb)
-* Table (Key-Value)
+* Table (Key-Value) - mostly compatible with Azure Table
+* Graph API (using the Gremlin graph traversal language)
 * MongoDb
 * Cassandra
-* Gremlin
-* Graph API
 
 ** NOTE : Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not realy interested in MongoDb and Cassandra in this talk - think of it as IaaS for those APIs.
 
