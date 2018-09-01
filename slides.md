@@ -29,7 +29,7 @@ Some use cases are production ready, with great documentation. Others less so.
 * Gremlin
 * Graph API
 
-** NOTE : Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1
+** NOTE : Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not realy interested in MongoDb and Cassandra in this talk - think of it as IaaS for those APIs.
 
 ---
 
@@ -74,17 +74,22 @@ Some use cases are production ready, with great documentation. Others less so.
 ## New considerations
 
 * RUs?
-* Scalable consistency
-
+  * A measure of computational complexity. Can be hard to predict. So build, test, and measure. Pricing is based on allocating enough resources for x00 RUs.
+* Tuneable consistency
+  * (new slide with image on this)
+  
 ---
 
 ## Local development
 
 * CosmosDb emulator (and limitations)
-
+  * Only SQL and Table API
+  * Does not support any consistency model (so only single-threading for dev)
+  * Does support UDF and SPs
+  
 ---
 
-## C#
+## C# 
 
 * Creating models
 * LINQ and conventions
