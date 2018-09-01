@@ -37,12 +37,22 @@ Some use cases are production ready, with great documentation. Others less so.
 * It's not relational
 * Don't try and join between documents, you can only join within to traverse hierarchy
 * What queries do you need to optimise?
+* It's no longer about 3NF
+  * Remember the SQL API is SQL syntax on NoSql data
 
 ---
 
 ## Data structure (Table API)
 
 * It's actually KV pair
+
+---
+
+## Data structure (Graph API)
+
+* Nodes and vertices
+* Models relationships (e.g. social media)
+* Support Gremlin language for queries
 
 ---
 
@@ -93,6 +103,7 @@ Some use cases are production ready, with great documentation. Others less so.
 * Creating models
 * LINQ and conventions
   * Silent failures 
+* Automapping is very nice, when it works
 
 ---
 
