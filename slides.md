@@ -22,6 +22,15 @@ Some use cases are production ready, with great documentation. Others less so.
 
 ## The APIs
 
+* SQL (LINQ over JSON, fka DocumentDb)
+* Table (Key-Value)
+* MongoDb
+* Cassandra
+* Gremlin
+* Graph API
+
+** NOTE : Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1
+
 ---
 
 ## Data structure (SQL API)
