@@ -1,5 +1,7 @@
 # Introduction to CosmosDb
 
+---
+
 ## What is CosmosDb
 
 "A globally distributed, massively scalable, multi-model database service"
