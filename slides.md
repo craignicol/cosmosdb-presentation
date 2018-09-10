@@ -6,7 +6,7 @@
 
 "A globally distributed, massively scalable, multi-model database service"
 
----
++++
 
 ## Globally distributed
 
