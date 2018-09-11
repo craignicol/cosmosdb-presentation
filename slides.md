@@ -91,7 +91,9 @@ Some use cases are production ready, with great documentation. Others less so.
 * MongoDb
 * Cassandra
 
-** NOTE : Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not realy interested in MongoDb and Cassandra in this talk - think of it as IaaS for those APIs.
+Note:
+
+Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not realy interested in MongoDb and Cassandra in this talk - think of it as IaaS for those APIs.
 
 +++
 
@@ -295,7 +297,7 @@ Some use cases are production ready, with great documentation. Others less so.
 * `azcopy`
 * Data Migration tool (desktop and CLI)
 * Azure Data Factory (import from CSV etc. within portal)
-* Special rules for MongoDb ��
+* Special rules for MongoDb `vvv`
 
 +++
 
