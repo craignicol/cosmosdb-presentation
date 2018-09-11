@@ -52,8 +52,13 @@ Some use cases are production ready, with great documentation. Others less so.
 ## The Basics
 
 * One account (_accountname_.document.azure.com)
-* Many databases per account (each database has its own API and scaling)
+* Many databases per account
 * Many containers and users per database
+
++++
+
+## Containers
+
 * Each container has:
   * Items
   * Stored procedures
@@ -61,6 +66,17 @@ Some use cases are production ready, with great documentation. Others less so.
   * User-Defined Functions
   * Conflict (for colliding updates)
 * Each API names these differently
+
++++
+
+## Lifecycles
+
+* Use TTL to expire documents without consuming RUs
+* TTL (Time to Live) :
+  * -1 = Off (infinite life)
+  * *n* = delete *n* seconds after last update
+* Can be set at collection level (default for all documents), and document level to overwrite this
+* Set TTL to *null* on a document to use default
 
 ---
 
@@ -107,7 +123,7 @@ Some use cases are production ready, with great documentation. Others less so.
 * Supports Gremlin language for data manipulation and queries
 * Flat data, modelled within SQL API
 * Can use SQL API to add additional data to graph collection
-  * e.g. _graph_icon_... to display pictures in graph explorer on Azure portal
+  * e.g. \_graph\_icon\_... to display pictures in graph explorer on Azure portal
 
 ---
 
@@ -118,7 +134,7 @@ Some use cases are production ready, with great documentation. Others less so.
   * Missing writes turn up in Conflicts
 * Manual
   * Follow the Clock if users are worldwide
-* PreferredLocations
+* `PreferredLocations` in configuration
 * All regions map to single URL (`multi-hosting`)
 
 ---
@@ -146,7 +162,7 @@ Some use cases are production ready, with great documentation. Others less so.
 
 ## Scaling
 
-* Scale up = add RUs
+* Scale up = add RUs (increase `Throughput`)
 * Scale out = Partitioning
 * Expect HTTP 429 if you exceed RU limit
 * SDK has auto-retry, so only worry iif it's common
@@ -226,9 +242,9 @@ Some use cases are production ready, with great documentation. Others less so.
   * Does not support any consistency model (so only single-threading for dev)
   * Does support UDF and SPs
   
----
++++
 
-## C# 
+## C♯
 
 * Creating models
 * LINQ and conventions
@@ -260,7 +276,7 @@ Some use cases are production ready, with great documentation. Others less so.
 * Use CosmosDB for real-time data
 * Use Spark for analysis
 * Historical or real-time predictions
-* Pushdown Predicate Filtering : subsets of data baed on indexes
+* Pushdown Predicate Filtering : subsets of data based on indexes
 * Alternative to Gremlin - decide what's best for you
 
 +++
@@ -274,11 +290,31 @@ Some use cases are production ready, with great documentation. Others less so.
 
 ---
 
-## Data miration
+## Data migration
 
 * `azcopy`
 * Data Migration tool (desktop and CLI)
 * Azure Data Factory (import from CSV etc. within portal)
+* Special rules for MongoDb ��
+
++++
+
+## MongoDb
+
+* Import data
+* New connection string
+* Shard using `{ shardCollection: "admin.people", key: {region: "hashed"} }` or similar
+* Use `db.runCommand({getLastRequestStatistics: 1})` to see RUs required to insert a record
+* Use `setVerboseShell(true)` to record latency statistics
+
++++
+
+## MongoDb *batchSize*
+
+* For _batchSize_, divide the total provisioned RUs by the RUs consumed from your single document write.
+* If the calculated _batchSize_ <= 24, use that number as your _batchSize_ value.
+* If the calculated _batchSize_ > 24, set the _batchSize_ value to 24.
+* For _numInsertionWorkers_, use this equation: _numInsertionWorkers_ = (provisioned throughput * latency in seconds) / (batch size * consumed RUs for a single write).
 
 ---
 
