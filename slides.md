@@ -1,5 +1,7 @@
 # Introduction to CosmosDb
 
+(need images)
+
 ---
 
 ## What is CosmosDb
@@ -93,7 +95,7 @@ Some use cases are production ready, with great documentation. Others less so.
 
 Note:
 
-Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not realy interested in MongoDb and Cassandra in this talk - think of it as IaaS for those APIs.
+Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not really interested in MongoDb and Cassandra in this talk - think of it as IaaS for those APIs.
 
 +++
 
@@ -111,7 +113,7 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 
 * It's actually KV pair
 * Flat documents (no nesting)
-* SImplified SQL API
+* Simplified SQL API
 * Designed to upgrade from Azure Table storage with no rework
 * CosmosDb advantage and guarantees, but new projects probably better with SQL API
 * PartitionKey and RowKey (id) are required
@@ -240,9 +242,9 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 ## Local development
 
 * CosmosDb emulator (and limitations)
-  * Only SQL and Table API
+  * Only SQL and Table API (is this still true?)
   * Does not support any consistency model (so only single-threading for dev)
-  * Does support UDF and SPs
+  * Does support UDF and SPs (is this still true?)
   
 +++
 
@@ -334,6 +336,14 @@ Room booking system
 * Each event has a title
 * Each event has an attendee list
 * Each event may have on-line details
+
+---
+
+## Gotchas
+
+* have to opt in to detect conflicts (etag) - sometimes this is ok
+* Emulator doesn't support consistency
+* Case matters
 
 ---
 
