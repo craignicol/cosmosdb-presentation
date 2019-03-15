@@ -276,6 +276,8 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 Every change that happens to the data is published in a feed that you can subscribe to via Azure Functions or other hooks.
 
+![Change feed overview](Change-feed-overview.png)
+
 +++
 
 ## Projecting data
