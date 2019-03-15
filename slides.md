@@ -32,6 +32,12 @@
 
 +++
 
+## Consistency Levels
+
+![Consistency Level](Consistency-levels.png)
+
+Note :
+
 * Consistency levels
   * Eventual
   * Consistent Prefix (preserves order)
@@ -44,11 +50,16 @@
 ## Multi-model
 
 * Multiple APIs
+* JSON SQL is first class
 * Compatibility layers for:
   * Gremlin / GraphSON
   * Cassandra
   * MongoDb
   * Azure Table Storage
+
+Note:
+
+Other layers are specific JSON schema within JSON SQL
 
 +++
 
@@ -70,7 +81,7 @@ Some use cases are production ready, with great documentation. Others less so.
 
 ![CosmosDB Structure](Cosmos-structure.png)
 
-+++
+Note:
 
 ## Containers
 
@@ -82,7 +93,7 @@ Some use cases are production ready, with great documentation. Others less so.
   * Conflict (for colliding updates)
 * Each API names these differently
 
-+++
+Note:
 
 ## SQL SDK Containers
 
@@ -170,17 +181,32 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 IDocumentQuery<dynamic> query = client.CreateDocumentQuery(
     UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName),
     "SELECT * FROM c WHERE c.city = 'Seattle'",
-    new FeedOptions 
-    { 
-        PopulateQueryMetrics = true, 
-        MaxItemCount = -1, 
-        MaxDegreeOfParallelism = -1, 
-        EnableCrossPartitionQuery = true 
+    new FeedOptions
+    {
+        PopulateQueryMetrics = true,
+        MaxItemCount = -1,
+        MaxDegreeOfParallelism = -1,
+        EnableCrossPartitionQuery = true
     }).AsDocumentQuery();
 
 FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 ```
+
++++
+
+## LINQ support
+
+The query provider does officially support LINQ, but there's some issues
+with the Newtonsoft JSON annotations which means that there's limited
+support for case changes between C\# and JSON.
+
++++
+
+## New C\# SDK
+
+The new SDK has just been released earlier this year. I haven't had a chance to 
+use it yet, but there's a lot less ceremony in the client setup.
 
 ---
 
@@ -193,12 +219,6 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
   * Follow the Clock if users are worldwide
 * `PreferredLocations` in configuration
 * All regions map to single URL (`multi-hosting`)
-
----
-
-## Consistency Levels
-
-![Consistency Level](Consistency-levels.png)
 
 ---
 
@@ -254,6 +274,10 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 ## Dynamic Partitioning
 ![Dynamic Partition](Dynamic-partition.png)
+
+Note:
+
+May want to shortcut right here
 
 +++
 
@@ -315,7 +339,7 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 
 ---
 
-## JS in the database?
+## JS in the database
 
 * Good use of internal processing can reduce your RU count, and therefore costs
 * Stored procedures
@@ -324,18 +348,8 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 * UDF
   * Functions called within queries
   * Can accept and return any JSON object
-* Triggers
-  * Azure Functions  
 * Not TypeScript
 
----
-
-## New considerations
-
-* RUs?
-  * A measure of computational complexity. Can be hard to predict. So build, test, and measure. Pricing is based on allocating enough resources for x00 RUs.
-* Tuneable consistency
-  
 ---
 
 ## Local development
@@ -353,6 +367,23 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 * LINQ and conventions
   * Silent failures
 * Automapping is very nice, when it works
+
++++
+
+## Example / Demo
+
+Room booking system
+
+* Number of sites
+* Each site has multiple employees
+* Each site has multiple rooms
+* Data model choice:
+  * Each room can have multiple events; OR
+  * Events have their own collection
+* Each event has a start and end time (fun with timezones)
+* Each event has a title
+* Each event has an attendee list
+* Each event may have on-line details
 
 ---
 
@@ -377,7 +408,7 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 
 * Natural language (plurals, tenses etc)
 * CosmosDB is persistence layer
-* Use @HighWaterMark as last updated reference
+* Use `@HighWaterMark` as last updated reference
 * Search cannot track hard deletes
   * Use soft deletes with TTL
 
@@ -430,29 +461,20 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 
 ---
 
-## Example
-
-Room booking system
-
-* Number of sites
-* Each site has multiple employees
-* Each site has multiple rooms
-* Each room can have multiple events
-- OR -
-* Events have their own collection
-* Each event has a start and end time (fun with timezones)
-* Each event has a title
-* Each event has an attendee list
-* Each event may have on-line details
-
----
-
 ## Gotchas
 
 * have to opt in to detect conflicts (etag) - sometimes this is ok
 * Emulator doesn't support consistency
-* Case matters
+* Case matters, NewtonSoft doesn't
 
++++
+
+## New considerations
+
+* RUs?
+  * A measure of computational complexity. Can be hard to predict. So build, test, and measure. Pricing is based on allocating enough resources for x00 RUs.
+* Tuneable consistency
+  
 ---
 
 ## Conclusion
