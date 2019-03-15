@@ -17,6 +17,7 @@
 * Data replicated in milliseconds between regions
   * PATCH behind the scenes
 * Guaranteed low latency (SLAd)
+* Regional Failover
 
 +++
 
@@ -56,6 +57,12 @@ Some use cases are production ready, with great documentation. Others less so.
 * One account (_accountname_.document.azure.com)
 * Many databases per account
 * Many containers and users per database
+
++++
+
+## The Basics
+
+![CosmosDB Structure](Cosmos-structure.png)
 
 +++
 
@@ -142,6 +149,29 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 * Can use SQL API to add additional data to graph collection
   * e.g. \_graph\_icon\_... to display pictures in graph explorer on Azure portal
 
+
++++
+
+## Using the SQL API in C#
+
+* Some client set-up then...
+
+```cs
+IDocumentQuery<dynamic> query = client.CreateDocumentQuery(
+    UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName), 
+    "SELECT * FROM c WHERE c.city = 'Seattle'", 
+    new FeedOptions 
+    { 
+        PopulateQueryMetrics = true, 
+        MaxItemCount = -1, 
+        MaxDegreeOfParallelism = -1, 
+        EnableCrossPartitionQuery = true 
+    }).AsDocumentQuery();
+
+FeedResponse<dynamic> result = await query.ExecuteNextAsync();
+
+```
+
 ---
 
 ## Failover
@@ -153,6 +183,12 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
   * Follow the Clock if users are worldwide
 * `PreferredLocations` in configuration
 * All regions map to single URL (`multi-hosting`)
+
+---
+
+## Consistency Levels
+
+![Consistency Level](Consistency-levels.png)
 
 ---
 
@@ -183,6 +219,18 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 * Scale out = Partitioning
 * Expect HTTP 429 if you exceed RU limit
 * SDK has auto-retry, so only worry if it's common
+
++++
+
+## Partitioning
+
+![Partition](Partition.png)
+![Partition Set](Partition-set.png)
+
++++
+
+## Dynamic Partitioning
+![Dynamic Partition](Dynamic-partition.png)
 
 +++
 
