@@ -371,7 +371,9 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 
 ## Example / Demo
 
-Room booking system
++++
+
+## Room booking system : sites
 
 * Number of sites
 * Each site has multiple employees
@@ -379,6 +381,11 @@ Room booking system
 * Data model choice:
   * Each room can have multiple events; OR
   * Events have their own collection
+
++++
+
+## Room booking system : events
+
 * Each event has a start and end time (fun with timezones)
 * Each event has a title
 * Each event has an attendee list
