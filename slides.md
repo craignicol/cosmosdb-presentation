@@ -36,7 +36,7 @@
 
 ![Consistency Level](Consistency-levels.png)
 
-Note :
+Note:
 
 * Consistency levels
   * Eventual
@@ -273,6 +273,7 @@ use it yet, but there's a lot less ceremony in the client setup.
 +++
 
 ## Dynamic Partitioning
+
 ![Dynamic Partition](Dynamic-partition.png)
 
 Note:
