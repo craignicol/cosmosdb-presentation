@@ -1,7 +1,5 @@
 # Introduction to CosmosDb
 
-(need images)
-
 ---
 
 ## What is CosmosDb
@@ -12,7 +10,9 @@
 
 ## Globally distributed
 
-* Multi-region (one or more write : multi-master, one or more read)
+* Multi-region: 
+    * one or more write region = multi-master;
+    * one or more read region with client failover
 * Each region has many datacenters
 * Data replicated in milliseconds between regions
   * PATCH behind the scenes
@@ -27,6 +27,12 @@
 * All Items in a partition are co-located for speed
 * CosmosDB automatically scales out partitions
 * Configurable consistency
+
+![Consistency slider](Consistency-slider.png)
+
++++
+
+* Consistency levels
   * Eventual
   * Consistent Prefix (preserves order)
   * Session (user sees own writes)
@@ -120,6 +126,11 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 * It's not relational, it's roughly hierarchical, but you can layer inter-document links
 * Don't try and join between documents, you can only join within to traverse hierarchy
   * Query across common keys then project into the result
+
++++
+
+## Data structure (SQL API Queries)
+
 * What queries do you need to optimise?
   * Fit the structure round the common problems
   * Are you optimising for read or write?
@@ -147,19 +158,18 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 * Supports Gremlin language for data manipulation and queries
 * Flat data, modelled within SQL API
 * Can use SQL API to add additional data to graph collection
-  * e.g. \_graph\_icon\_... to display pictures in graph explorer on Azure portal
+  * e.g. `_graph_icon_`... to display pictures in graph explorer on Azure portal
 
+---
 
-+++
-
-## Using the SQL API in C#
+## C\# SDK example : SQL API
 
 * Some client set-up then...
 
 ```cs
 IDocumentQuery<dynamic> query = client.CreateDocumentQuery(
-    UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName), 
-    "SELECT * FROM c WHERE c.city = 'Seattle'", 
+    UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName),
+    "SELECT * FROM c WHERE c.city = 'Seattle'",
     new FeedOptions 
     { 
         PopulateQueryMetrics = true, 
@@ -222,9 +232,22 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 +++
 
+## Query performance
+
+* cross-partition queries disabled by default
+* page size as in SQL `MaxItemCount`
+* Use `PopulateQueryMetrics` to gather statistics
+
+---
+
 ## Partitioning
 
 ![Partition](Partition.png)
+
++++
+
+## Partition sets
+
 ![Partition Set](Partition-set.png)
 
 +++
@@ -254,7 +277,7 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 * 100 RU/s minimum for non-partitioned storage, 1000 RU/s for partitioned storage
 * Need to migrate to move from Fixed to unlimited
 
-+++
+---
 
 ## Scaling to large documents
 
@@ -262,19 +285,13 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 * Disable indexing on most properties
 * Append partition key to split large collections
 
-+++
-
-## Query performance
-
-* cross-partition queries disabled by default
-* page size as in SQL `MaxItemCount`
-* Use `PopulateQueryMetrics` to gather statistics
-
 ---
 
 ## The change feed
 
 Every change that happens to the data is published in a feed that you can subscribe to via Azure Functions or other hooks.
+
++++
 
 ![Change feed overview](Change-feed-overview.png)
 
@@ -318,7 +335,6 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 * RUs?
   * A measure of computational complexity. Can be hard to predict. So build, test, and measure. Pricing is based on allocating enough resources for x00 RUs.
 * Tuneable consistency
-  * (new slide with image on this)
   
 ---
 
@@ -340,13 +356,22 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 
 ---
 
-## Integration with Azure Fuctions
+## Supported Integrations
+
+* Azure Functions
+* Azure Search
+* Spark
+* Many others
+
++++
+
+## Integration with Azure Functions
 
 * Change feed - just the updates, ordered by _ts timestamp
 * Trigger by database + collection
 * Get full data for each document
 
----
++++
 
 ## Integration with Azure Search
 
@@ -356,7 +381,7 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 * Search cannot track hard deletes
   * Use soft deletes with TTL
 
----
++++
 
 ## Integration with Spark
 
