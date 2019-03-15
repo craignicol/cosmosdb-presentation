@@ -71,6 +71,15 @@ Some use cases are production ready, with great documentation. Others less so.
 
 +++
 
+## SQL SDK Containers
+
+SQL SDK is default - everything else is a defined schema on top
+
+* container = `collection`
+* Item = `document`
+
++++
+
 ## Lifecycles
 
 * Use TTL to expire documents without consuming RUs
@@ -233,6 +242,7 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 * *_self* link (use CreateDocumentUri if needed)
 * *_etag* for concurrency
   * concurrency is opt-in, record the etag on retrieval then send with the update request to check for changes
+  * otherwise use Conflict container to resolve afterwards, if you wish to
 * *_attachments* append to _self for list of attachments
 * *_ts* last updated timestamp in epoch time
 
