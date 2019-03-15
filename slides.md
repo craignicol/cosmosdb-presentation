@@ -93,8 +93,6 @@ Containers
   * Conflict (for colliding updates)
 * Each API names these differently
 
-Note:
-
 SQL SDK Containers
 
 SQL SDK is default - everything else is a defined schema on top
