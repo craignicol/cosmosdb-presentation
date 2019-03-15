@@ -83,7 +83,7 @@ Some use cases are production ready, with great documentation. Others less so.
 
 Note:
 
-Containers
+## Containers
 
 * Each container has:
   * Items
@@ -93,7 +93,7 @@ Containers
   * Conflict (for colliding updates)
 * Each API names these differently
 
-SQL SDK Containers
+## SQL SDK Containers
 
 SQL SDK is default - everything else is a defined schema on top
 
