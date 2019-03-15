@@ -12,11 +12,11 @@
 
 ## Globally distributed
 
-* Multi-region (one write, one or more read)
+* Multi-region (one or more write : multi-master, one or more read)
 * Each region has many datacenters
 * Data replicated in milliseconds between regions
   * PATCH behind the scenes
-* Guaranteed low latency
+* Guaranteed low latency (SLAd)
 
 +++
 
@@ -101,9 +101,13 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 
 ## Data structure (SQL API)
 
-* It's not relational
+* It's not relational, it's roughly hierarchical, but you can layer inter-document links
 * Don't try and join between documents, you can only join within to traverse hierarchy
+  * Query across common keys then project into the result
 * What queries do you need to optimise?
+  * Fit the structure round the common problems
+  * Are you optimising for read or write?
+  * Remember you can store multiple projections
 * It's no longer about 3NF
   * Remember the SQL API is SQL syntax on NoSql data
 
@@ -169,13 +173,13 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 * Scale up = add RUs (increase `Throughput`)
 * Scale out = Partitioning
 * Expect HTTP 429 if you exceed RU limit
-* SDK has auto-retry, so only worry iif it's common
+* SDK has auto-retry, so only worry if it's common
 
 +++
 
 ## Partitioning
 
-* Automatically partition
+* Automatically partitioned
 * Choose a key that adequately distribute the data
 * CosmosDb will automatically cluster
 * Multiple partitions in one partition range
@@ -211,11 +215,24 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 
 ---
 
+## The change feed
+
+Every change that happens to the data is published in a feed that you can subscribe to via Azure Functions or other hooks.
+
++++
+
+## Projecting data
+
+You can use the change feed to aggregate or otherwise transform data, so that you can have one collection optimised for writes and another optimised for reporting, updated in near-real-time.
+
+---
+
 ## meta properties
 
-* *_rid* immutable id
+* *_rid* immutable record id
 * *_self* link (use CreateDocumentUri if needed)
 * *_etag* for concurrency
+  * concurrency is opt-in, record the etag on retrieval then send with the update request to check for changes
 * *_attachments* append to _self for list of attachments
 * *_ts* last updated timestamp in epoch time
 
@@ -223,10 +240,16 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 
 ## JS in the database?
 
-* Stored procs
+* Good use of internal processing can reduce your RU count, and therefore costs
+* Stored procedures
+  * Full SDK access
+  * Useful for validation and other pre-update processing
 * UDF
+  * Functions called within queries
+  * Can accept and return any JSON object
 * Triggers
   * Azure Functions  
+* Not TypeScript
 
 ---
 
