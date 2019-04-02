@@ -21,6 +21,18 @@
 
 +++
 
+## Multi-region
+
+![Multi-region](multi-region.png)
+
++++
+
+## Regional Failover
+
+![Geo-replication](Geo-replication.png)
+
++++
+
 ## Massively scalable
 
 * Choose a partition key for your container
