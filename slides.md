@@ -215,13 +215,7 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 +++
 
-@snap[west span-30]
-@fa[cloud-upload-alt fa-5x]
-@snapend
-
-@snap[east span-60]
-@box[bg-black rounded box-padding span-60](The new SDK has just been released earlier this year. I haven't had a chance to use it fully yet, but there's a lot less ceremony in the client setup.)
-@snapend
+@box[bg-black rounded box-padding span-60](@fa[cloud-upload-alt fa-5x] The new SDK has just been released earlier this year. I haven't had a chance to use it fully yet, but there's a lot less ceremony in the client setup.)
 
 ---
 
