@@ -1,6 +1,6 @@
 theme : moon
-transition : fade
-footnote : "https://craignicol.wordpress.com && https://twitter.com/craignicol"
+transition : convex
+footnote : "Global Azure Bootcamp 2019 | https://craignicol.wordpress.com | https://twitter.com/craignicol"
 published : true
 controls-layout : edges
 eager-loading : true
