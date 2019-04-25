@@ -217,9 +217,13 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 ## New C♯ SDK
 
+@snap[west span-30]
 @fa[cloud-upload-alt fa-5x]
+@snapend
 
+@snap[east span-60]
 @box[bg-black rounded box-padding](The new SDK has just been released earlier this year. I haven't had a chance to use it fully yet, but there's a lot less ceremony in the client setup.)
+@snapend
 
 ---
 
