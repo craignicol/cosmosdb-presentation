@@ -8,15 +8,24 @@
 
 +++
 
+## Azure native, RESTful
+
+* Builds on other Azure technologies
+* Native format is JSON
+* Native API is RESTful
+* Expect to understand HTTP to understand CosmosDb
+
++++
+
 ## Globally distributed
 
 * Multi-region: 
-    * one or more write region = multi-master;
-    * one or more read region with client failover
+  * one or more write region = multi-master;
+  * one or more read region with client failover
 * Each region has many datacenters
 * Data replicated in milliseconds between regions
   * PATCH behind the scenes
-* Guaranteed low latency (SLAd)
+* Guaranteed low latency (with SLA)
 * Regional Failover
 
 +++
@@ -24,6 +33,10 @@
 ## Multi-region
 
 ![Multi-region](multi-region.png)
+
+Note:
+
+54 regions, every continent except Antarctica
 
 +++
 
@@ -89,11 +102,9 @@ Some use cases are production ready, with great documentation. Others less so.
 
 +++
 
-## The Basics
+## Structure of a CosmosDb account
 
 ![CosmosDB Structure](Cosmos-structure.png)
-
-Note:
 
 ## Containers
 
@@ -127,7 +138,7 @@ SQL SDK is default - everything else is a defined schema on top
 
 ## The APIs
 
-* SQL (LINQ over JSON, fka DocumentDb)
+* SQL (Queries over JSON, fka DocumentDb)
   * Database of Collections of Documents
 * Table (Key-Value) - mostly compatible with Azure Table
   * Database of Tables, with Rows
@@ -138,6 +149,8 @@ SQL SDK is default - everything else is a defined schema on top
 
 Note:
 
+SQL is native format
+
 Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not really interested in MongoDb and Cassandra in this talk - think of it as IaaS for those APIs.
 
 +++
@@ -147,6 +160,12 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 * It's not relational, it's roughly hierarchical, but you can layer inter-document links
 * Don't try and join between documents, you can only join within to traverse hierarchy
   * Query across common keys then project into the result
+
++++
+
+## SQL API Example
+
+![SQL API Example](azure-cosmosdb-data-explorer-edited-query.png)
 
 +++
 
@@ -183,7 +202,7 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 
 ---
 
-## C\# SDK example : SQL API
+## C♯ SDK example : SQL API
 
 * Some client set-up then...
 
@@ -327,6 +346,8 @@ May want to shortcut right here
 Every change that happens to the data is published in a feed that you can subscribe to via Azure Functions or other hooks.
 
 +++
+
+## Change feed examples
 
 ![Change feed overview](Change-feed-overview.png)
 
@@ -475,7 +496,7 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 * For _batchSize_, divide the total provisioned RUs by the RUs consumed from your single document write.
 * If the calculated _batchSize_ <= 24, use that number as your _batchSize_ value.
 * If the calculated _batchSize_ > 24, set the _batchSize_ value to 24.
-* For _numInsertionWorkers_, use this equation: _numInsertionWorkers_ = (provisioned throughput * latency in seconds) / (batch size * consumed RUs for a single write).
+* For _numInsertionWorkers_, use this equation: _numInsertionWorkers_ = (provisioned throughput \* latency in seconds) / (batch size \* consumed RUs for a single write).
 
 ---
 
@@ -483,15 +504,16 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 
 * have to opt in to detect conflicts (etag) - sometimes this is ok
 * Emulator doesn't support consistency
-* Case matters, NewtonSoft doesn't
+* Case matters, NewtonSoft annotations don't
 
 +++
 
 ## New considerations
 
 * RUs?
-  * A measure of computational complexity. Can be hard to predict. So build, test, and measure. Pricing is based on allocating enough resources for x00 RUs.
+  * A measure of computational complexity. Can be hard to predict. So build, test, and measure. Pricing is based on allocating enough resources for x000 RUs.
 * Tuneable consistency
+* Your data no longer has to be homogenous
   
 ---
 
@@ -499,5 +521,6 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 
 ---
 
-## Questions?
+## Questions
   
+❓
