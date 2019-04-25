@@ -215,7 +215,11 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 +++
 
+@snap[north span-80]
+
 ## New C♯ SDK
+
+@snapend
 
 @snap[south-west span-30]
 
