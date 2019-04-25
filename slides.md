@@ -1,10 +1,10 @@
-# Introduction to CosmosDb
+# CosmosDb In The Real World
 
 ---
 
 ## What is CosmosDb
 
-"A globally distributed, massively scalable, multi-model database service"
+@quote[A globally distributed, massively scalable, multi-model database service]
 
 +++
 
@@ -209,16 +209,15 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 ## LINQ support
 
-The query provider does officially support LINQ, but there's some issues
-with the Newtonsoft JSON annotations which means that there's limited
-support for case changes between C♯ and JSON.
+* The query provider supports LINQ...
+  * but there's some issues with the Newtonsoft JSON annotations
+  * so there's limited support for case changes between C♯ and JSON.
 
 +++
 
 ## New C♯ SDK
 
-The new SDK has just been released earlier this year. I haven't had a chance to
-use it yet, but there's a lot less ceremony in the client setup.
+@box[](The new SDK has just been released earlier this year. I haven't had a chance to use it fully yet, but there's a lot less ceremony in the client setup.)
 
 ---
 
@@ -288,32 +287,6 @@ use it yet, but there's a lot less ceremony in the client setup.
 
 ![Dynamic Partition](Dynamic-partition.png)
 
-Note:
-
-May want to shortcut right here
-
-+++
-
-## Partitioning
-
-* Automatically partitioned
-* Choose a key that adequately distribute the data
-* CosmosDb will automatically cluster
-* Multiple partitions in one partition range
-* Timestamp likely a bad idea - likely to cluster
-* Optimise for read or for write
-
-+++
-
-## Choosing Partition strategy
-
-* Add more partition keys to give CosmosDb more scaling options
-  * Create compositite key
-  * OR use change feed for multiple partition strategies
-* Review metrics to see where to partition
-* 100 RU/s minimum for non-partitioned storage, 1000 RU/s for partitioned storage
-* Need to migrate to move from Fixed to unlimited
-
 ---
 
 ## Scaling to large documents
@@ -326,7 +299,7 @@ May want to shortcut right here
 
 ## The change feed
 
-Every change that happens to the data is published in a feed that you can subscribe to via Azure Functions or other hooks.
+@box[](Every change that happens to the data is published in a feed that you can subscribe to via Azure Functions or other hooks.)
 
 +++
 
@@ -338,14 +311,14 @@ Every change that happens to the data is published in a feed that you can subscr
 
 ## Projecting data
 
-You can use the change feed to aggregate or otherwise transform data, so that you can have one collection optimised for writes and another optimised for reporting, updated in near-real-time.
+@box[](You can use the change feed to aggregate or otherwise transform data, so that you can have one collection optimised for writes and another optimised for reporting, updated in near-real-time.)
 
 ---
 
 ## meta properties
 
 * *_rid* immutable record id
-* *_self* link (use CreateDocumentUri if needed)
+* *_self* link (use `CreateDocumentUri` if needed)
 * *_etag* for concurrency
   * concurrency is opt-in, record the etag on retrieval then send with the update request to check for changes
   * otherwise use Conflict container to resolve afterwards, if you wish to
@@ -471,7 +444,7 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 
 * RUs?
   * A measure of computational complexity. Can be hard to predict. So build, test, and measure. Pricing is based on allocating enough resources for x000 RUs.
-* Tuneable consistency
+* Tunable consistency
 * Your data no longer has to be homogenous
   
 ---
