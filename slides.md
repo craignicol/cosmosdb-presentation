@@ -106,17 +106,6 @@ Some use cases are production ready, with great documentation. Others less so.
 
 ![CosmosDB Structure](Cosmos-structure.png)
 
-+++
-
-## Lifecycles
-
-* Use TTL to expire documents without consuming RUs
-* TTL (Time to Live) :
-  * -1 = Off (infinite life)
-  * *n* = delete *n* seconds after last update
-* Can be set at collection level (default for all documents), and document level to overwrite this
-* Set TTL to *null* on a document to use default
-
 ---
 
 ## The APIs
@@ -140,15 +129,14 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 
 ## Data structure (SQL API)
 
-* It's not relational, it's roughly hierarchical, but you can layer inter-document links
-* Don't try and join between documents, you can only join within to traverse hierarchy
+* It's not relational, it's roughly hierarchical
+* Documents have unique ids for inter-document links
+* Don't try and join between documents within SQL, you can only join within a document
   * Query across common keys then project into the result
 
-+++
+Note:
 
-## SQL API Example
-
-![SQL API Example](azure-cosmosdb-data-explorer-edited-query.png)
+E.g. to calculate a customer history across multiple orders, first get all orders for that customer, then summarise the resulting orders on the client side.
 
 +++
 
@@ -165,7 +153,7 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 
 ## Data structure (Table API)
 
-* It's actually KV pair
+* It's actually Key-Value pair
 * Flat documents (no nesting)
 * Simplified SQL API
 * Designed to upgrade from Azure Table storage with no rework
@@ -176,7 +164,7 @@ Think of DocumentDb as 1.0, CosmosDb as 2.0, but what you really want is 2.1 Not
 
 ## Data structure (Graph API)
 
-* Nodes and vertices
+* Edges and vertices
 * Models relationships (e.g. social media)
 * Supports Gremlin language for data manipulation and queries
 * Flat data, modelled within SQL API
@@ -237,19 +225,22 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 * Use metrics to explore
 * Index and partition
-* Prefer smaller operation (PUT over POST/DELETE over bulk)
-* Use TTL to expire
-* Use change feed to offload processing, add additional partitions
+* Prefer smaller operations
+  * But CosmosDb doesn't yet support PATCH over PUT/POST
+* Use TTL to expire rather than deleting documents yourself
+* Use change feed to offload processing
 
 +++
 
 ## Indexing
 
-* Index all the things automatically
+* Indexes all the things automatically
 * No need for schema and index management
 * Hash, range, and geospatial indexes
   * Hash for equality, range for ordering, geospatial for location
 * ...but sometimes you need to tune
+  * Remove keys
+  * Change index type
 * Top searches should be on id or partition key for best results
 
 +++
@@ -260,13 +251,17 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 * Scale out = Partitioning
 * Expect HTTP 429 if you exceed RU limit
 * SDK has auto-retry, so only worry if it's common
+* Pricing model is bundles of RUs per second (100s or 1000s) per partition per collection per region 
 
 +++
 
 ## Query performance
 
-* cross-partition queries disabled by default
-* page size as in SQL `MaxItemCount`
+* Cross-partition queries disabled by default
+* Page size as in SQL `MaxItemCount`
+  * But full paging support is still "In Progress"
+  * Paging only works within one partition
+  * No easy way to `Skip()` into Page 2 and on
 * Use `PopulateQueryMetrics` to gather statistics
 
 ---
@@ -343,18 +338,9 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 ## Local development
 
 * CosmosDb emulator (and limitations)
-  * Only SQL and Table API (is this still true?)
+  * Supports all APIs, but UI only displays SQL API
   * Does not support any consistency model (so only single-threading for dev)
-  * Does support UDF and SPs (is this still true?)
-  
-+++
-
-## C♯
-
-* Creating models
-* LINQ and conventions
-  * Silent failures
-* Automapping is very nice, when it works
+  * Does support UDF and SPs
 
 ---
 
@@ -434,7 +420,7 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 ## Gotchas
 
-* have to opt in to detect conflicts (etag) - sometimes this is ok
+* Have to opt in to detect conflicts (etag) - sometimes this is ok
 * Emulator doesn't support consistency
 * Case matters, NewtonSoft annotations don't
 
