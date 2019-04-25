@@ -217,7 +217,9 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 ## New C♯ SDK
 
-@box[](The new SDK has just been released earlier this year. I haven't had a chance to use it fully yet, but there's a lot less ceremony in the client setup.)
+@fa[cloud-upload-alt fa-5x]
+
+@box[bg-black rounded box-padding](The new SDK has just been released earlier this year. I haven't had a chance to use it fully yet, but there's a lot less ceremony in the client setup.)
 
 ---
 
@@ -299,7 +301,7 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 ## The change feed
 
-@box[](Every change that happens to the data is published in a feed that you can subscribe to via Azure Functions or other hooks.)
+@box[bg-black rounded box-padding](Every change that happens to the data is published in a feed that you can subscribe to via Azure Functions or other hooks.)
 
 +++
 
@@ -311,7 +313,9 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 ## Projecting data
 
-@box[](You can use the change feed to aggregate or otherwise transform data, so that you can have one collection optimised for writes and another optimised for reporting, updated in near-real-time.)
+@fa[rss-square fa-5x]
+
+@box[bg-black rounded box-padding](You can use the change feed to aggregate or otherwise transform data, so that you can have one collection optimised for writes and another optimised for reporting, updated in near-real-time.)
 
 ---
 
