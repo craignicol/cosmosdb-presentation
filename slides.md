@@ -106,23 +106,6 @@ Some use cases are production ready, with great documentation. Others less so.
 
 ![CosmosDB Structure](Cosmos-structure.png)
 
-## Containers
-
-* Each container has:
-  * Items
-  * Stored procedures
-  * Triggers
-  * User-Defined Functions
-  * Conflict (for colliding updates)
-* Each API names these differently
-
-## SQL SDK Containers
-
-SQL SDK is default - everything else is a defined schema on top
-
-* container = `collection`
-* Item = `document`
-
 +++
 
 ## Lifecycles
@@ -228,13 +211,13 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 The query provider does officially support LINQ, but there's some issues
 with the Newtonsoft JSON annotations which means that there's limited
-support for case changes between C\# and JSON.
+support for case changes between C♯ and JSON.
 
 +++
 
-## New C\# SDK
+## New C♯ SDK
 
-The new SDK has just been released earlier this year. I haven't had a chance to 
+The new SDK has just been released earlier this year. I haven't had a chance to
 use it yet, but there's a lot less ceremony in the client setup.
 
 ---
@@ -400,30 +383,6 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
   * Silent failures
 * Automapping is very nice, when it works
 
-+++
-
-## Example / Demo
-
-+++
-
-## Room booking system : sites
-
-* Number of sites
-* Each site has multiple employees
-* Each site has multiple rooms
-* Data model choice:
-  * Each room can have multiple events; OR
-  * Events have their own collection
-
-+++
-
-## Room booking system : events
-
-* Each event has a start and end time (fun with timezones)
-* Each event has a title
-* Each event has an attendee list
-* Each event may have on-line details
-
 ---
 
 ## Supported Integrations
@@ -470,7 +429,7 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 * Can use changefeed for real-time integration
 * Refresh to see updates
 
----
++++
 
 ## Data migration
 
@@ -519,8 +478,15 @@ You can use the change feed to aggregate or otherwise transform data, so that yo
 
 ## Conclusion
 
+* "A globally distributed, massively scalable, multi-model database service"
+* Very easy to scale, but costs can be harder to predict
+* It's not RDMS, learn the new performance characteristics
+* C♯ and other languages are supported, but it's JavaScript native
+* The API is REST native and opinionated. Understand those opinions
+* Embrace the change feed
+
 ---
 
 ## Questions
   
-❓
+ @size[3.5em](❓)
