@@ -215,23 +215,11 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 +++
 
-@snap[north span-80]
-
 ## New C♯ SDK
-
-@snapend
-
-@snap[south-west span-30]
 
 @fa[cloud-upload-alt fa-5x]
 
-@snapend
-
-@snap[south-east span-60]
-
-@box[bg-black rounded box-padding](The new SDK has just been released earlier this year. I haven't had a chance to use it fully yet, but there's a lot less ceremony in the client setup.)
-
-@snapend
+@box[bg-black rounded box-padding span-60](The new SDK has just been released earlier this year. I haven't had a chance to use it fully yet, but there's a lot less ceremony in the client setup.)
 
 ---
 
@@ -327,7 +315,7 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 @fa[rss-square fa-5x]
 
-@box[bg-black rounded box-padding](You can use the change feed to aggregate or otherwise transform data, so that you can have one collection optimised for writes and another optimised for reporting, updated in near-real-time.)
+@box[bg-black rounded box-padding span-60](You can use the change feed to aggregate or otherwise transform data, so that you can have one collection optimised for writes and another optimised for reporting, updated in near-real-time.)
 
 ---
 
