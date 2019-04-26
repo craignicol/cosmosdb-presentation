@@ -1,5 +1,5 @@
 theme : moon
-transition : convex
+transition : fade
 footnote : "Global Azure Bootcamp 2019 | https://craignicol.wordpress.com | https://twitter.com/craignicol"
 published : true
 controls-layout : edges
