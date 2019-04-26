@@ -8,15 +8,6 @@
 
 +++
 
-## Azure native, RESTful
-
-* Builds on other Azure technologies
-* Native format is JSON
-* Native API is RESTful
-* Expect to understand HTTP to understand CosmosDb
-
-+++
-
 ## Globally distributed
 
 * Multi-region: 
@@ -91,6 +82,15 @@ Other layers are specific JSON schema within JSON SQL
 ## In development
 
 Some use cases are production ready, with great documentation. Others less so.
+
+---
+
+## Azure native, RESTful
+
+* Builds on other Azure technologies
+* Native format is JSON
+* Native API is RESTful
+* Expect to understand HTTP to understand CosmosDb
 
 ---
 
