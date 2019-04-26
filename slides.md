@@ -322,19 +322,6 @@ FeedResponse<dynamic> result = await query.ExecuteNextAsync();
 
 ---
 
-## JS in the database
-
-* Good use of internal processing can reduce your RU count, and therefore costs
-* Stored procedures
-  * Full SDK access
-  * Useful for validation and other pre-update processing
-* UDF
-  * Functions called within queries
-  * Can accept and return any JSON object
-* Not TypeScript
-
----
-
 ## Local development
 
 * CosmosDb emulator (and limitations)
